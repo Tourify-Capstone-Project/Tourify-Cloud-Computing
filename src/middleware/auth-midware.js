@@ -13,10 +13,6 @@ const verifyJWT = (req, res, next) => {
     const token = authHeader.split(' ')[1];
     console.log("Token received:", token); // Log token yang diterima
 
-    if (!token) {
-        return res.status(401).json({ message: "Token not provided!" });
-    }
-
     JWT.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
             console.error('Invalid token:', token);

@@ -16,18 +16,22 @@ app.use(cors({
 }));
 
 // Parsing body
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
 // Parsing JSON
 app.use(express.json());
 app.use(bodyParser.json());
+
 // Trust proxy
 app.set('trust proxy', true);
+
 // Set view engine
 app.set('view engine', 'ejs');
 
 // Set routes
 app.use('/', routes);
 
+// Set first endpoint
 app.get('/', (req, res) => {
   res.send('Hi, This is Tourify API!');
 });

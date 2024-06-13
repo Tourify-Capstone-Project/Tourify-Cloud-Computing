@@ -11,4 +11,4 @@ serviceAccountKey.json
 package-lock.json
 
 #database
-db
+db/
