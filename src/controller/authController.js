@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const dbConnect = require('../config/database-config');
 const { signInWithEmailAndPassword } = require('@firebase/auth');
 const { auth } = require('../config/firebase-config');
 const JWT = require('jsonwebtoken');
@@ -33,6 +34,20 @@ const signUp = async (req, res) => {
             password,
         })
 
+        const userId = userRecord.uid;
+        const userEmail = userRecord.email;
+
+        try {
+            // Tambahkan data pengguna ke tabel Tourify_Users
+            const insertQuery = 'INSERT INTO Tourify_Users (user_id, user_email, username) VALUES (?, ?, ?)';
+            await dbConnect.query(insertQuery, [userId, userEmail, username]);
+            console.log('User data inserted into Tourify_Users');
+        } catch (insertError) {
+            // Jika terjadi kesalahan saat menyimpan data di database, hapus user dari Firebase Authentication
+            console.error('Error inserting user data:', insertError);
+            await admin.auth().deleteUser(userRecord.uid);
+            throw insertError; // Lanjutkan melempar error agar ditangani di blok catch utama
+        }
 
         const verificationLink = await admin.auth().generateEmailVerificationLink(email);
 
@@ -40,19 +55,19 @@ const signUp = async (req, res) => {
             service: 'gmail',
             host: 'smtp.gmail.com',
             auth: {
-                user: 'mytourifyapp@gmail.com',
-                pass: 'cbwe sksh iqql udas',
+                user: 'noreply.tourify@gmail.com',
+                pass: 'ixce qgji scun swnt',
             },
         });
         
         const name = userRecord.displayName;
         const mailOptions = {
-            from: '"Tourify" <mytourifyapp@gmail.com>', // Set sender name and email
+            from: '"Tourify" <noreply.tourify@gmail.com>', // Set sender name and email
             to: email,
             replyTo: "noreply",
             subject: "[No-Reply] Verify Your Email For Tourify!",
             html:
-            `<p> Hello ${name}, Welcome to Tourify App! </p> <br>
+            `<p> Hi ${name}, welcome to Tourify App! </p> <br>
             <p> Please verify your email by click <a href="${verificationLink}"> <u> verify my email </u> </a>.</p>
             <p> If you didn't ask to verify this address, you can ignore this email. Thank you. </p> <br>
             <p> Best Regards, </p>
@@ -71,6 +86,8 @@ const signUp = async (req, res) => {
                 res.status(200).json({ message: "SignUp successful. Please check your email.", user: userRecord });
             }
         });
+
+        
     } catch (error) {
         console.error(error);
 

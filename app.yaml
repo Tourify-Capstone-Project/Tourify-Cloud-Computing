@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: default
+service: tourify-api
 env: standard
 
 entrypoint: node ./src/server.js

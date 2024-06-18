@@ -1,6 +1,8 @@
 const dbConnect = require('../config/database-config');
 const admin = require('firebase-admin');
 
+//================================================================================================================
+
 // PUT UsernameProfile
 const putUsernameProfile = async (req, res) => {
     try {
@@ -125,10 +127,10 @@ const postProfilePhoto = async (req, res) => {
         const storage = admin.storage();
         const bucket = storage.bucket('gs://tourify-app-4e4fd.appspot.com');
 
-        // Hapus foto lama jika ada (using Firebase Admin SDK)
         const existingPhotosPrefix = `user-profile-img/${userId}/`;
         const [files] = await bucket.getFiles({ prefix: existingPhotosPrefix });
-
+        
+        // Hapus foto lama jika ada (using Firebase Admin SDK)
         await Promise.all(files.map(async (fileObject) => {
             if (fileObject.name.startsWith(existingPhotosPrefix)) {
                 await fileObject.delete();
@@ -145,16 +147,16 @@ const postProfilePhoto = async (req, res) => {
             }
         });
 
-        // Dapatkan URL download dengan token
-        const expiresInOneDay = new Date();
-        expiresInOneDay.setDate(expiresInOneDay.getDate() + 1);
+        // Dapatkan URL download dengan token, berlaku selama 1 bulan
+        const expiresInOneMonth = new Date();
+        expiresInOneMonth.setMonth(expiresInOneMonth.getMonth() + 1); // Tambah 1 bulan
 
         const downloadURL = await newPhotoRef.getSignedUrl({
             action: 'read',
-            expires: expiresInOneDay.toISOString() 
+            expires: expiresInOneMonth.toISOString()
         });
 
-        const imgURL = downloadURL[0];
+        const imgURL = downloadURL[0]; // Ambil URL dari array
 
         res.status(200).json({ message: 'Profile picture updated successfully! ', userId, userEmail, photoPublicUrl: imgURL });
     } catch (error) {

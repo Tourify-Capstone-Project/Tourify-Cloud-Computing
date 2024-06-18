@@ -1,4 +1,5 @@
 const dbConnect = require('../config/database-config');
+const admin = require('firebase-admin');
 
 //================================================================================================================
 
@@ -29,6 +30,8 @@ const getAllPlaces = (req, res) => {
                     placeAddress: place.tourism_location, //Location Address
                     placePhotoUrl: place.tourism_image ? place.tourism_image : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-no_image.png', // Set default placeholder if no image URL exists
                     placeGmapsUrl: place.tourism_gmaps ? place.tourism_gmaps : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-logo.png', // Set default placeholder if no gmaps URL exists
+                    latitude: placeData.latitude,
+                    longitude: placeData.longitude,
                 };
             });
 
@@ -67,6 +70,8 @@ const getPlacesByCategory = (req, res) => {
                     placeAddress: place.tourism_location, //Location Address
                     placePhotoUrl: place.tourism_image ? place.tourism_image : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-no_image.png', // Set default placeholder if no image URL exists
                     placeGmapsUrl: place.tourism_gmaps ? place.tourism_gmaps : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-logo.png', // Set default placeholder if no gmaps URL exists
+                    latitude: placeData.latitude,
+                    longitude: placeData.longitude,
                 };
             });
 
@@ -116,6 +121,8 @@ const getDetailPlace = (req, res) => {
                         placeAddress: placeData.tourism_location, // Location Address
                         placePhotoUrl: placeData.tourism_image || 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-no_image.png',
                         placeGmapsUrl: placeData.tourism_gmaps || 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-logo.png',
+                        latitude: placeData.latitude,
+                        longitude: placeData.longitude,
                         additionalImages: imageRows // Array of image data from Tourify_Image
                     };
 
