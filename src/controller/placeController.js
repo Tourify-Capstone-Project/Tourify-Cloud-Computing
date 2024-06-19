@@ -30,8 +30,8 @@ const getAllPlaces = (req, res) => {
                     placeAddress: place.tourism_location, //Location Address
                     placePhotoUrl: place.tourism_image ? place.tourism_image : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-no_image.png', // Set default placeholder if no image URL exists
                     placeGmapsUrl: place.tourism_gmaps ? place.tourism_gmaps : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-logo.png', // Set default placeholder if no gmaps URL exists
-                    latitude: placeData.latitude,
-                    longitude: placeData.longitude,
+                    latitude: place.latitude,
+                    longitude: place.longitude,
                 };
             });
 
@@ -70,8 +70,8 @@ const getPlacesByCategory = (req, res) => {
                     placeAddress: place.tourism_location, //Location Address
                     placePhotoUrl: place.tourism_image ? place.tourism_image : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-no_image.png', // Set default placeholder if no image URL exists
                     placeGmapsUrl: place.tourism_gmaps ? place.tourism_gmaps : 'https://storage.googleapis.com/tourifyapp-bucket/tourify-images/image-default/tourify-logo.png', // Set default placeholder if no gmaps URL exists
-                    latitude: placeData.latitude,
-                    longitude: placeData.longitude,
+                    latitude: place.latitude,
+                    longitude: place.longitude,
                 };
             });
 

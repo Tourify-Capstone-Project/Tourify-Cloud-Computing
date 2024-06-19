@@ -7,6 +7,7 @@ const { getArticles } = require('../controller/articleController');
 const { postFavoritePlace, getFavoritesByUser, deleteFavoritePlace } = require('../controller/favoriteController');
 const { putUsernameProfile, getUsernameProfile, postProfilePhoto } = require('../controller/userController');
 const { postReviewUser, getReviewsByTourismId } = require('../controller/reviewController');
+const { postRecommenPlace, getRecommenPlace } = require('../controller/recommenController');
 const { verifyJWT } = require('../middleware/auth-midware');
 
 
@@ -32,11 +33,17 @@ route.get('/profile', getUsernameProfile);
 route.post('/profile', upload.single('imgProfile'), (req, res) => {
     postProfilePhoto(req, res); // Panggil fungsi controller dengan req dan res
 });
+
 route.post('/destination/:tourism_id/review-destination', postReviewUser);
 route.get('/destination/:tourism_id/review-destination', getReviewsByTourismId);
+
 route.post('/destination/:tourism_id/favorite-destination', postFavoritePlace);
 route.delete('/destination/:tourism_id/favorite-destination', deleteFavoritePlace);
+
 route.get('/favorite-destination', getFavoritesByUser);
 route.get('/finance-destination', getFinanceByFavorite);
+
+route.post('/destination/:tourism_id/recommendation', postRecommenPlace);
+route.get('/home/recommendation', getRecommenPlace);
 
 module.exports = route;

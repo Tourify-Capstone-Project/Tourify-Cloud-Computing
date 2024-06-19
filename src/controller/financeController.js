@@ -36,7 +36,7 @@ const getFinanceByFavorite = async (req, res) => {
                     userId: favData.user_id,
                     userEmail: favData.user_email,
                     tourismId: favData.tourism_id,
-                    placePrice: favData.price, // Tambahkan harga ke setiap item
+                    placePrice: parseFloat(favData.price).toFixed(3) || '0', // Tambahkan harga ke setiap item
                     detailPlace: {
                         placeName: placeData.tourism_name,
                         city: placeData.city,
