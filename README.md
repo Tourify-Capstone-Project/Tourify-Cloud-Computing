@@ -7,7 +7,7 @@
 * Firebase: we use this for authentication and firebase storage to store user profile photos
 * Cloud Storage: we use this service  to store some default images and export datasets that have been created from local computers.
 ---
-
+![Alur](arsitektur-gcp.jpeg)
 #### API Endpoint
 ```
 POST SignUp -> /signup
