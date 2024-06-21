@@ -7,7 +7,8 @@
 * Firebase: we use this for authentication and firebase storage to store user profile photos
 * Cloud Storage: we use this service  to store some default images and export datasets that have been created from local computers.
 ---
-![Alur](arsitektur-gcp.jpeg)
+![arsitektur-gcp](https://github.com/Tourify-Capstone-Project/Tourify-Cloud-Computing/assets/47408640/a0a2148f-ed1e-46f6-8e6a-de457e53ea4b)
+r-gcp.jpeg)
 #### API Endpoint
 ```
 POST SignUp -> /signup
