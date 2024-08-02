@@ -63,5 +63,5 @@ Follow this link : [Tourify-API Documentation](https://documenter.getpostman.com
 Follow this link : [Tourify-API](https://tourify-api-dot-tourify-app-project.as.r.appspot.com/)
 
 #### Note
-if the link cannot be accessed, it means that the server is having problems or has been closed due to cost constraints.
+If API link cannot be accessed, it means that the server is having problems or has been closed due to cost constraints.
 
